@@ -10,9 +10,9 @@ steps:
     args: ['run', 'build']
 
   # Export the static site (for Nextra/Next.js static export)
-  - name: 'node:20'
-    entrypoint: 'npm'
-    args: ['run', 'export']
+  # - name: 'node:20'
+  #   entrypoint: 'npm'
+  #   args: ['run', 'export']
 
   # Upload the static site to your GCS bucket
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -20,9 +20,9 @@ steps:
     args:
       - '-c'
       - |
-        gsutil -m rsync -r out gs://idp-system-upload-bucket/nextjs-site
+        gsutil -m rsync -r .next gs://idp-system-upload-bucket/nextjs-site
 
 artifacts:
   objects:
     location: 'gs://idp-system-upload-bucket/nextjs-artifacts'
-    paths: ['out/**'] 
+    paths: ['.next/**'] 
